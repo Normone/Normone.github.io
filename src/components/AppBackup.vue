@@ -2,11 +2,18 @@
 <div class="kva">
   <div class='container' v-bind:class="{loginned: isLoginned, notLoginned : !isLoginned}">
     <h1 id="title">{{name}}</h1>
-    <img :src="require('@/assets/' + currentStatus + '.png')">
     <div  class="imgCard">{{img}}</div>
     <div class="description">
         <p>{{name}} {{description}}</p>
     </div>
+    <div class="form">
+        <input v-model="name" type="text">
+        <input v-model="img" class="inputImg" type="text">
+        <input v-model="description" type="text">
+    </div>
+    <button v-on:click="submit" class="btn">go</button>
+    <button v-on:click="clicks" class="btn">клик</button>
+    <p>{{click}} раз</p>
   </div>
   <div class="game">
     <div class="stats">
@@ -26,36 +33,17 @@
       <button v-on:click="feed">feed</button>
       <img class="controlIcon" src="./assets/icon/glass-shot.svg" alt="">
       <button v-on:click="getDrunk">Get drunk</button>
-      <img class="controlIcon" src="./assets/icon/game-console.svg" alt="">
-      <button v-on:click="entertain">entertain</button>
       <img class="controlIcon" src="./assets/icon/alarm-clock.svg" alt="">
       <button v-on:click="freezing">Freezing</button>
       <img class="controlIcon" src="./assets/icon/alarm-clock.svg" alt="">
       <button v-on:click="checkDead">dead?</button>
     </div>
   </div>
-  <div class="game-clicker">
-    <img class="controlIcon" src="./assets/icon/money-stack.svg" alt="">
-    <p>$: {{click}}</p>
-    <button v-on:click="clicks" class="btn">$</button>
-    <div class="shop"></div>
-    
-  </div>
+  <!-- <videoList>
+
+  </videoList> -->
 </div>
 </template>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <script>
 
@@ -91,15 +79,24 @@ export default {
         calm: false,
         weakArousal: false,
         arousal: false,
+        overarousal: false,
         broken: false,
-      },
-      currentStatus: 'sleep',
+      }
       
 
 
     }
   },
   methods: {
+    submit: function() {
+      if (this.description === 'ква') {
+          this.isLoginned = true;
+          this.isNotLoginned = false;
+      } else {
+          this.isLoggined = false;
+          this.isNotLoginned = true;
+      }
+    },
     wakeUp: function() {
       if (this.intervalA === null) {
         clearInterval(this.intervalB);
@@ -121,15 +118,13 @@ export default {
             }
           }
           this.changeImg()
-          this.checkDead()
-          this.getStatus()
+          this.checkDead();
         }, 1000); //30 минут = 1800000 или 30*60*1000
 
         this.intervalB = null;
       }
     },
     sleep: function() {
-      this.currentStatus = 'sleep';
       if (this.intervalB == null) {
         clearInterval(this.intervalA);
         this.intervalB = setInterval(() => {
@@ -149,7 +144,7 @@ export default {
             }
           }
           this.changeImg()
-          this.checkDead()
+          this.checkDead();
         }, 1000); //30 минут = 1800000 или 30*60*1000
         this.intervalA = null;
       }
@@ -172,16 +167,16 @@ export default {
         this.stats.bellyful = 12
       }
     },
+    checkDead: function() {
+      if (this.stats.bellyful == 0 && this.stats.hydration == 0) {
+        alert("She's dead")
+        this.freezing()
+      }
+    },
     getDrunk: function() {
       this.stats.hydration += 3;
       if (this.stats.hydration > 12) {
         this.stats.hydration = 12
-      }
-    },
-    entertain: function() {
-      this.stats.entertainment +=3;
-      if (this.stats.entertainment > 12) {
-        this.stats.entertainment = 12
       }
     },
     freezing: function() {
@@ -190,38 +185,17 @@ export default {
       this.intervalA = null;
       this.intervalB = null;
     },
-    checkDead: function() {
-      if (this.stats.bellyful == 0 && this.stats.hydration == 0) {
-        alert("She's dead")
-        this.freezing()
-      }
-    },
-    getStatus: function() {
-      if (this.stats.bellyful && this.stats.hydration >0) {
-       if (this.stats.endurance >0) {
-        if (this.stats.arousal <= 4) {
-          this.currentStatus = 'calm'
-        } else if (this.stats.arousal > 4 && this.stats.arousal <= 7) {
-          this.currentStatus = 'weakArousal'
-        } else if (this.stats.arousal > 7 && this.stats.arousal <= 11) {
-          this.currentStatus = 'arousal'
-        } else if (this.stats.arousal > 11 && this.stats.arousal <= 12) {
-          this.currentStatus = 'broken'
-        }
-      }
-     }
+    checkStatus: function() {
+
     }
   },
   
-
-
-
   computed: {
     maxEndurance: function() {
       return (this.stats.bellyful + this.stats.hydration) / 2;
     },
-  },
-  
+    
+  }
 };
 
 </script>
@@ -271,18 +245,13 @@ button {
 } */
 
 .container {
-    display: flex;
+    display: block;
     width: 400px;
     height: 500px;
     margin: 0 auto;
     margin-top: 50px;
     border: 1px solid black;
     border-radius: 5%;
-    flex-direction: column;
-    align-items: center;
-}
-.container img {
-  width: 250px;
 }
 #title {
     padding: 4px 10px;
@@ -326,12 +295,11 @@ button {
   position: absolute;
   left: 0px;
   top: 10%;
-  width: 300px;
 }
 .stats {
   width: 200px;
   border: 1px solid black;
-  width: 240px;
+
 }
 .control {
 width: 200px;
@@ -344,12 +312,5 @@ align-items: center;
   width: 50px;
   height: 50px;
 
-}
-
-.game-clicker {
-  position: absolute;
-  right: 0px;
-  top: 10%;
-  width: 300px;
 }
 </style>
