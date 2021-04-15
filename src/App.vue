@@ -86,13 +86,6 @@ export default {
         endurance: 1,
       },
       click: 0,
-      status: {
-        sleep: true,
-        calm: false,
-        weakArousal: false,
-        arousal: false,
-        broken: false,
-      },
       currentStatus: 'sleep',
       
 
@@ -119,11 +112,13 @@ export default {
             if (this.stats[key] < 0) {
                 this.stats[key] = 0
             }
+            
           }
           this.changeImg()
           this.checkDead()
           this.getStatus()
-        }, 1000); //30 минут = 1800000 или 30*60*1000
+          
+        }, 6000); //30 минут = 1800000 или 30*60*1000
 
         this.intervalB = null;
       }
@@ -150,7 +145,7 @@ export default {
           }
           this.changeImg()
           this.checkDead()
-        }, 1000); //30 минут = 1800000 или 30*60*1000
+        }, 6000); //30 минут = 1800000 или 30*60*1000
         this.intervalA = null;
       }
     },
@@ -199,7 +194,7 @@ export default {
     getStatus: function() {
       if (this.stats.bellyful && this.stats.hydration >0) {
        if (this.stats.endurance >0) {
-        if (this.stats.arousal <= 4) {
+        if (this.stats.arousal >0 && this.stats.arousal <= 4) {
           this.currentStatus = 'calm'
         } else if (this.stats.arousal > 4 && this.stats.arousal <= 7) {
           this.currentStatus = 'weakArousal'
