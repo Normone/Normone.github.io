@@ -17,18 +17,15 @@ git add -A
 git commit -m 'deploy'
 
 # если вы публикуете по адресу https://<USERNAME>.github.io
-<<<<<<< HEAD
 # git push -f git@github.com:Normone/Normone.github.io.git master
 
 # kurva
 
 # если вы публикуете по адресу https://<USERNAME>.github.io/<REPO>
 # git push -f git@github.com:Normone/tamagochi.git master:gh-pages
-=======
 # git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git master
 
 # если вы публикуете по адресу https://<USERNAME>.github.io/<REPO>
 git push -f git@github.com:Normone/tamagochi.git master:gh-pages
->>>>>>> 642ef0a1ce6ebfad141a30e0d0fef8e8c500e065
 
 cd -
