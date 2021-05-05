@@ -1,6 +1,6 @@
 <template>
 <div class="kva">
-  <div class='container' v-bind:class="{loginned: isLoginned, notLoginned : !isLoginned}">
+  <div class='container'>
     <h1 id="title">{{name}}</h1>
     <img :src="require('@/assets/' + currentStatus + '.png')">
     <div  class="imgCard">{{img}}</div>
@@ -22,6 +22,18 @@
       <button v-on:click="wakeUp">Wake up</button>
       <img class="controlIcon" src="./assets/icon/night-sleep.svg" alt="">
       <button v-on:click="sleep">Sleep</button>
+      <!-- <img class="controlIcon" src="./assets/icon/pie-slice.svg" alt="">
+      <button v-on:click="feed">feed</button>
+      <img class="controlIcon" src="./assets/icon/glass-shot.svg" alt="">
+      <button v-on:click="getDrunk">Get drunk</button>
+      <img class="controlIcon" src="./assets/icon/game-console.svg" alt="">
+      <button v-on:click="entertain">entertain</button>
+      <img class="controlIcon" src="./assets/icon/alarm-clock.svg" alt="">
+      <button v-on:click="freezing">Freezing</button>
+      <img class="controlIcon" src="./assets/icon/alarm-clock.svg" alt="">
+      <button v-on:click="checkDead">dead?</button> -->
+    </div>
+    <div class="debag">
       <img class="controlIcon" src="./assets/icon/pie-slice.svg" alt="">
       <button v-on:click="feed">feed</button>
       <img class="controlIcon" src="./assets/icon/glass-shot.svg" alt="">
@@ -38,7 +50,11 @@
     <img class="controlIcon" src="./assets/icon/money-stack.svg" alt="">
     <p>$: {{click}}</p>
     <button v-on:click="clicks" class="btn">$</button>
-    <div class="shop"></div>
+    <div class="shop">
+      <img v-on:click="buyFood" class="controlIcon" src="./assets/icon/pie-slice.svg" alt="Купить еды (10)">
+      <img v-on:click="buyWater" class="controlIcon" src="./assets/icon/glass-shot.svg" alt="Купить воды (10)">
+      <img v-on:click="buyGames" class="controlIcon" src="./assets/icon/game-console.svg" alt="Купить игру (10)">
+    </div>
     
   </div>
 </div>
@@ -205,7 +221,25 @@ export default {
         }
       }
      }
-    }
+    },
+    buyFood: function() {
+      if (this.click >= 10) {
+        this.click = this.click - 10;
+        this.feed();
+      }
+    },
+    buyWater: function() {
+      if (this.click >= 10) {
+        this.click = this.click - 10;
+        this.getDrunk();
+      }
+    },
+    buyGames: function() {
+      if (this.click >= 10) {
+        this.click = this.click - 10;
+        this.entertain();
+      }
+    },
   },
   
 
@@ -271,13 +305,17 @@ button {
     height: 500px;
     margin: 0 auto;
     margin-top: 50px;
-    border: 1px solid black;
-    border-radius: 5%;
+    /* border: 1px solid black; */
+    border-radius: 10%;
     flex-direction: column;
     align-items: center;
+    background: no-repeat url(./assets/fckngBG.png);
+    background-size: contain;
+    background-position: 50%;
 }
 .container img {
   width: 250px;
+  margin-top: 72px;
 }
 #title {
     padding: 4px 10px;
@@ -305,16 +343,7 @@ button {
     height: 20px;
     margin: 10px auto;
 }
-.loginned {
-    background: no-repeat url(./assets/bg-login-1.jpeg);
-    background-size: contain;
-    background-position: 50%;
-}
-.notLoginned {
-    background: no-repeat url(./assets/bg-login-0.jpeg);
-    background-size: contain;
-    background-position: 50%;
-}
+
 
 
 .game {
@@ -340,11 +369,24 @@ align-items: center;
   height: 50px;
 
 }
+.debag {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 5px;
+  left: 5px;
+}
 
 .game-clicker {
   position: absolute;
   right: 0px;
   top: 10%;
   width: 300px;
+}
+.shop {
+  width: 300px;
+  height: 400px;
 }
 </style>
