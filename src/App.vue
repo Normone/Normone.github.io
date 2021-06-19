@@ -13,7 +13,7 @@
       <p>Сытость: {{stats.bellyful}}</p>
       <p>Гидрация: {{stats.hydration}}</p>
       <p>Чистота: {{stats.clean}}</p>
-      <p>Развлечённость: {{stats.entertainment}}</p>
+      <p>Настроение: {{stats.mood}}</p>
       <p>Возбуждение: {{stats.arousal}}</p>
       <p>Выносливость: {{stats.endurance}} (max: {{maxEndurance}})</p>
     </div>
@@ -22,16 +22,7 @@
       <button v-on:click="wakeUp">Wake up</button>
       <img class="controlIcon" src="./assets/icon/night-sleep.svg" alt="">
       <button v-on:click="sleep">Sleep</button>
-      <!-- <img class="controlIcon" src="./assets/icon/pie-slice.svg" alt="">
-      <button v-on:click="feed">feed</button>
-      <img class="controlIcon" src="./assets/icon/glass-shot.svg" alt="">
-      <button v-on:click="getDrunk">Get drunk</button>
-      <img class="controlIcon" src="./assets/icon/game-console.svg" alt="">
-      <button v-on:click="entertain">entertain</button>
-      <img class="controlIcon" src="./assets/icon/alarm-clock.svg" alt="">
-      <button v-on:click="freezing">Freezing</button>
-      <img class="controlIcon" src="./assets/icon/alarm-clock.svg" alt="">
-      <button v-on:click="checkDead">dead?</button> -->
+      
     </div>
     <div class="debag">
       <img class="controlIcon" src="./assets/icon/pie-slice.svg" alt="">
@@ -39,7 +30,7 @@
       <img class="controlIcon" src="./assets/icon/glass-shot.svg" alt="">
       <button v-on:click="getDrunk">Get drunk</button>
       <img class="controlIcon" src="./assets/icon/game-console.svg" alt="">
-      <button v-on:click="entertain">entertain</button>
+      <button v-on:click="entertain">Entertain</button>
       <img class="controlIcon" src="./assets/icon/alarm-clock.svg" alt="">
       <button v-on:click="freezing">Freezing</button>
       <img class="controlIcon" src="./assets/icon/alarm-clock.svg" alt="">
@@ -49,13 +40,16 @@
   <div class="game-clicker">
     <img class="controlIcon" src="./assets/icon/money-stack.svg" alt="">
     <p>$: {{click}}</p>
-    <button v-on:click="clicks" class="btn">$</button>
-    <div class="shop">
-      <img v-on:click="buyFood" class="controlIcon" src="./assets/icon/pie-slice.svg" alt="Купить еды (10)">
-      <img v-on:click="buyWater" class="controlIcon" src="./assets/icon/glass-shot.svg" alt="Купить воды (10)">
-      <img v-on:click="buyGames" class="controlIcon" src="./assets/icon/game-console.svg" alt="Купить игру (10)">
+    <div style="position: relative">
+      <div v-on:click="clicks" id="btn" >$</div>
     </div>
     
+    
+    <div class="shop">
+      <div kva="10$" v-on:click="buyFood" class="controlIcon"><img src="./assets/icon/pie-slice.svg" alt="Купить еды (10)"></div>
+      <div kva="10$" v-on:click="buyWater" class="controlIcon"><img src="./assets/icon/glass-shot.svg" alt="Купить воды (10)"></div>
+      <div kva="10$" v-on:click="buyGames" class="controlIcon"><img src="./assets/icon/game-console.svg" alt="Купить игру (10)"></div>
+    </div>
   </div>
 </div>
 </template>
@@ -74,7 +68,6 @@
 
 
 <script>
-
 // import vl from './components/videoList.vue';
 
 export default {
@@ -97,7 +90,7 @@ export default {
         bellyful: 6,
         hydration: 6,
         clean: 6,
-        entertainment: 6,
+        mood: 6,
         arousal: 0,
         endurance: 1,
       },
@@ -165,9 +158,30 @@ export default {
         this.intervalA = null;
       }
     },
+
+
+
+
     clicks: function() {
-      this.click += 1;
+      this.click++
+
+      
+
+      // const popUp = document.createElement("div");
+      
+      // popUp.setAttribute("class", "popUp");
+      // popUp.innerHTML = "+1";
+      // btn.append(popUp);
+
+      
+      // const ex = document.getElementsByClassName("popUp");
+
+      // ex[0].style.top = e.clientY;
+      // ex[0].style.left = e.clientX + 10;
     },
+
+
+
     changeImg: function() {
       if (this.stats.arousal === 12) {
         this.isLoginned = true;
@@ -190,9 +204,9 @@ export default {
       }
     },
     entertain: function() {
-      this.stats.entertainment +=3;
-      if (this.stats.entertainment > 12) {
-        this.stats.entertainment = 12
+      this.stats.mood +=3;
+      if (this.stats.mood > 12) {
+        this.stats.mood = 12
       }
     },
     freezing: function() {
@@ -240,6 +254,7 @@ export default {
         this.entertain();
       }
     },
+
   },
   
 
@@ -299,23 +314,37 @@ button {
     background-position: 50%;
 } */
 
+* {
+  transform: none;
+  z-index: 1;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -khtml-user-select: none;    /* Konqueror */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* Internet Explorer/Edge */
+  user-select: none;
+}
+
+body {
+  background-color: #fdfdfd;
+}
 .container {
     display: flex;
-    width: 400px;
+    width: 700px;
     height: 500px;
     margin: 0 auto;
-    margin-top: 50px;
+    
     /* border: 1px solid black; */
-    border-radius: 10%;
+    /* border-radius: 10%; */
     flex-direction: column;
     align-items: center;
-    background: no-repeat url(./assets/fckngBG.png);
+    /* background: no-repeat url(/img/fckngBG.dbb4d7c7.png); */
     background-size: contain;
+    background-color: #ffffff;
     background-position: 50%;
 }
 .container img {
   width: 250px;
-  margin-top: 72px;
 }
 #title {
     padding: 4px 10px;
@@ -337,13 +366,34 @@ button {
     margin: 5px auto;
     background-color: rgba(255, 255, 255, 0.5);
 }
-.btn {
+#btn {
     display: block;
-    width: 100px;
-    height: 20px;
+    width: 80px;
+    height: 80px;
     margin: 10px auto;
+    text-align: center;
+    padding: 30px;;
+    background-color: rgb(192, 174, 174);
+}
+.popUp {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  color: white;
+  font-weight: bold;
+  animation: GoUp 2s forwards linear;
+  transition: transform 5s;
 }
 
+@keyframes GoUp {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        top: 0px;
+        opacity: 0;
+    }
+}
 
 
 .game {
@@ -367,8 +417,24 @@ align-items: center;
 .controlIcon {
   width: 50px;
   height: 50px;
-
+  display: inline-block;
+  position: relative;
 }
+.controlIcon:hover::after {
+  content: attr(kva);
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0px;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.6);
+  color: rgb(0, 0, 0);
+  text-align: center;
+  font-size: 11px;
+  padding: 2px 0px;
+  border: 1px solid #333;
+ }
+
 .debag {
   width: 100%;
   display: flex;
