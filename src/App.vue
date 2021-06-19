@@ -162,22 +162,22 @@ export default {
 
 
 
-    clicks: function() {
+    clicks: function(e) {
       this.click++
 
-      
+      const btn = document.getElementById("btn");
 
-      // const popUp = document.createElement("div");
+      const popUp = document.createElement("div");
       
-      // popUp.setAttribute("class", "popUp");
-      // popUp.innerHTML = "+1";
-      // btn.append(popUp);
+      popUp.setAttribute("class", "popUp");
+      popUp.innerHTML = "+1";
+      btn.append(popUp);
 
       
-      // const ex = document.getElementsByClassName("popUp");
+      const ex = document.getElementsByClassName("popUp");
 
-      // ex[0].style.top = e.clientY;
-      // ex[0].style.left = e.clientX + 10;
+      ex[0].style.top = e.clientY;
+      ex[0].style.left = e.clientX - 10;
     },
 
 
@@ -287,7 +287,7 @@ export default {
 
 
 
-<style scoped>
+<style>
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
 
 * {
