@@ -165,19 +165,33 @@ export default {
     clicks: function(e) {
       this.click++
 
+      // const btn = document.getElementById("btn");
+
+      // const popUp = document.createElement("div");
+      // popUp.setAttribute("class", "popUp");
+      // popUp.innerHTML = "+1";
+      // btn.append(popUp);
+
+      // console.log(e)
+      // const ex = document.getElementsByClassName("popUp");
+
+      // ex[0].style.top = e.clientY + 'px';
+      // ex[0].style.left = e.clientX - 10 + 'px';
+      let x = this.click;
+
       const btn = document.getElementById("btn");
 
       const popUp = document.createElement("div");
-      
       popUp.setAttribute("class", "popUp");
+      popUp.setAttribute("id", '"popUp'+ x +'"');
       popUp.innerHTML = "+1";
       btn.append(popUp);
 
-      
-      const ex = document.getElementsByClassName("popUp");
+      console.log(e)
+      const ex = document.getElementById('"popUp'+ x +'"');
 
-      ex[0].style.top = e.clientY;
-      ex[0].style.left = e.clientX - 10;
+      ex.style.top = e.clientY + 'px';
+      ex.style.left = e.clientX - 10 + 'px';
     },
 
 
@@ -376,13 +390,15 @@ body {
     background-color: rgb(192, 174, 174);
 }
 .popUp {
-  position: absolute;
+  position: fixed;
+  /* top: 15px;
+  left: 135px; */
   width: 25px;
   height: 25px;
-  color: white;
+  color: rgb(255, 0, 0);
   font-weight: bold;
-  animation: GoUp 2s forwards linear;
-  transition: transform 5s;
+  animation: GoUp 1s forwards linear;
+  /* transition: transform 5s; */
 }
 
 @keyframes GoUp {
@@ -390,7 +406,7 @@ body {
         opacity: 1;
     }
     100% {
-        top: 0px;
+        top: -10px;
         opacity: 0;
     }
 }
