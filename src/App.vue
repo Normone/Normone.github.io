@@ -192,7 +192,12 @@ export default {
 
       ex.style.top = e.clientY + 'px';
       ex.style.left = e.clientX - 10 + 'px';
+
+      setTimeout(() => ex.remove(), 1000);
     },
+    // delPops: function(i) {
+
+    // }
 
 
 
