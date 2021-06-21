@@ -39,7 +39,7 @@
   </div>
   <div class="game-clicker">
     <img class="controlIcon" src="./assets/icon/money-stack.svg" alt="">
-    <p>$: {{click}}</p>
+    <p class="moneyCount">$: {{click}}</p>
     <div style="position: relative">
       <div v-on:click="clicks" id="btn" >$</div>
     </div>
@@ -47,9 +47,18 @@
     
     <div class="shop">
       <h1>Shop</h1>
-      <div kva="10$" v-on:click="buyFood" class="controlIcon"><img src="./assets/icon/pie-slice.svg" alt="Купить еды (10)"></div>
-      <div kva="10$" v-on:click="buyWater" class="controlIcon"><img src="./assets/icon/glass-shot.svg" alt="Купить воды (10)"></div>
-      <div kva="10$" v-on:click="buyGames" class="controlIcon"><img src="./assets/icon/game-console.svg" alt="Купить игру (10)"></div>
+      <div kva="10$" v-on:click="buyFood" class="controlIcon">
+        <img src="./assets/icon/pie-slice.svg" alt="Купить еды (10)">
+        <p>Еда</p>
+      </div>
+      <div kva="10$" v-on:click="buyWater" class="controlIcon">
+        <img src="./assets/icon/glass-shot.svg" alt="Купить воды (10)">
+        <p>Вода</p>
+      </div>
+      <div kva="10$" v-on:click="buyGames" class="controlIcon">
+        <img src="./assets/icon/game-console.svg" alt="Купить игру (10)">
+        <p>Игры</p>
+      </div>
     </div>
   </div>
 </div>
@@ -442,6 +451,11 @@ align-items: center;
   height: 50px;
   display: inline-block;
   position: relative;
+  margin: 10px;
+}
+.controlIcon p {
+  text-align: center;
+  font-size: 14px;
 }
 .controlIcon:hover::after {
   content: attr(kva);
@@ -478,13 +492,20 @@ align-items: center;
   align-content: flex-start;
   justify-content: space-around;
   align-items: center;
+  background-color: #f7f7f7;
 }
-.game-clicker p {
-  width: 83%;
+.moneyCount {
+  width: 75%;
 }
 .shop {
   width: 300px;
   height: 400px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  background-color: #efefef;
+  justify-content: space-around;
 }
 .shop h1 {
   border-bottom: 1px solid black;
