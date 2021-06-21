@@ -46,6 +46,7 @@
     
     
     <div class="shop">
+      <h1>Shop</h1>
       <div kva="10$" v-on:click="buyFood" class="controlIcon"><img src="./assets/icon/pie-slice.svg" alt="Купить еды (10)"></div>
       <div kva="10$" v-on:click="buyWater" class="controlIcon"><img src="./assets/icon/glass-shot.svg" alt="Купить воды (10)"></div>
       <div kva="10$" v-on:click="buyGames" class="controlIcon"><img src="./assets/icon/game-console.svg" alt="Купить игру (10)"></div>
@@ -393,6 +394,7 @@ body {
     text-align: center;
     padding: 30px;;
     background-color: rgb(192, 174, 174);
+    border-radius: 50%;
 }
 .popUp {
   position: fixed;
@@ -469,11 +471,23 @@ align-items: center;
 .game-clicker {
   position: absolute;
   right: 0px;
-  top: 10%;
+  top: 0px;
   width: 300px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  justify-content: space-around;
+  align-items: center;
+}
+.game-clicker p {
+  width: 83%;
 }
 .shop {
   width: 300px;
   height: 400px;
+}
+.shop h1 {
+  border-bottom: 1px solid black;
+  width: 100%;
 }
 </style>
