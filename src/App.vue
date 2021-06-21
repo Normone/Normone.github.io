@@ -59,6 +59,10 @@
         <img src="./assets/icon/game-console.svg" alt="Купить игру (10)">
         <p>Игры</p>
       </div>
+      <div kva="10$" v-on:click="buyEnergyDrink" class="controlIcon">
+        <img src="./assets/icon/game-console.svg" alt="Купить энергетик (10)">
+        <p>Энергетик</p>
+      </div>
     </div>
   </div>
 </div>
@@ -175,18 +179,6 @@ export default {
     clicks: function(e) {
       this.click++
 
-      // const btn = document.getElementById("btn");
-
-      // const popUp = document.createElement("div");
-      // popUp.setAttribute("class", "popUp");
-      // popUp.innerHTML = "+1";
-      // btn.append(popUp);
-
-      // console.log(e)
-      // const ex = document.getElementsByClassName("popUp");
-
-      // ex[0].style.top = e.clientY + 'px';
-      // ex[0].style.left = e.clientX - 10 + 'px';
       let x = this.click;
 
       const btn = document.getElementById("btn");
@@ -197,7 +189,7 @@ export default {
       popUp.innerHTML = "+1";
       btn.append(popUp);
 
-      console.log(e)
+      // console.log(e)
       const ex = document.getElementById('"popUp'+ x +'"');
 
       ex.style.top = e.clientY + 'px';
@@ -205,9 +197,6 @@ export default {
 
       setTimeout(() => ex.remove(), 1000);
     },
-    // delPops: function(i) {
-
-    // }
 
 
 
@@ -236,6 +225,12 @@ export default {
       this.stats.mood +=3;
       if (this.stats.mood > 12) {
         this.stats.mood = 12
+      }
+    },
+    getEndurance: function() {
+      this.stats.endurance += 3;
+      if (this.stats.endurance > this.maxEndurance) {
+        this.stats.endurance = this.maxEndurance
       }
     },
     freezing: function() {
@@ -283,7 +278,12 @@ export default {
         this.entertain();
       }
     },
-
+    buyEnergyDrink: function() {
+      if (this.click >= 10) {
+        this.click = this.click - 10;
+        this.getEndurance();
+      }
+    },
   },
   
 
